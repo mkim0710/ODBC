@@ -4,7 +4,7 @@ function.list_TABLE_NAME.sqlFetch_sqlColumns = function(channel) {
     library(tidyverse)
     out = filter(sqlTables(channel), TABLE_TYPE == "TABLE")$TABLE_NAME %>% map(function(x) {
         tmp.list = list()
-        tmp.list$sqlFetch = sqlFetch(channel, x)
+        tmp.list$sqlFetch = sqlQuery(channel, paste0("SELECT * FROM ", x))
         tmp.list$sqlColumns = sqlColumns(channel, x)
         tmp.list
     })
