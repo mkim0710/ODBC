@@ -1,4 +1,5 @@
 function.list_TABLE_NAME.sqlFetch_sqlColumns = function(channel) {
+    # source("https://github.com/mkim0710/ODBC/raw/master/library(RODBC) Big Data Management 2018 HW1 Grading.r")
     library(RODBC)
     library(tidyverse)
     out = filter(sqlTables(channel), TABLE_TYPE == "TABLE")$TABLE_NAME %>% map(function(x) {
@@ -14,6 +15,7 @@ function.list_TABLE_NAME.sqlFetch_sqlColumns = function(channel) {
 solution.list_TABLE_NAME.sqlFetch_sqlColumns = function.list_TABLE_NAME.sqlFetch_sqlColumns(odbcDriverConnect(sprintf("Driver={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=%s", path_filename )))
 
 function.list_TABLE_NAME.sqlFetch_sqlColumns.df_COLUMN_TYPE = function(channel.list_TABLE_NAME.sqlFetch_sqlColumns.df_COLUMN_TYPE) {
+    # source("https://github.com/mkim0710/ODBC/raw/master/library(RODBC) Big Data Management 2018 HW1 Grading.r")
     channel.list_TABLE_NAME.sqlFetch_sqlColumns.df_COLUMN_TYPE %>% map(function(ls) {
         ls$sqlColumns %>% mutate(NULLABLE_LABEL = ifelse(NULLABLE == 0, "NOT_NULLABLE", "NULLABLE")) %>% select(COLUMN_NAME, TYPE_NAME, NULLABLE_LABEL)
     }) %>% bind_rows(.id = "tbl")
